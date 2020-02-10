@@ -8,33 +8,32 @@ class GamesController < ApplicationController
     @word = params[:word].strip
     @letters = params[:letters].strip.chars
     @score = session[:score] || 0
-    if is_valid?(@word, @letters) && exists?(@word)
+    if valid?(@word, @letters) && exists?(@word)
       @answer = "congrats! #{@word}"
       @score += @word.chars.count
-    elsif is_valid?(@word, @letters)
+    elsif valid?(@word, @letters)
       @answer = "#{@word} does not exists"
     else
       @answer = "#{@word} is not in the grid"
     end
     session[:score] = @score
-    puts session[:score]
   end
 
   private
 
-  def is_valid?(word, letters)
-    result = true
-    word.chars.uniq.each do |letter|
-      unless letters.include?(letter)
-        result = false
+  def valid?(word, letters)
+    used_letters = []
+    word.chars.each do |letter|
+      if letters.include?(letter)
+        used_letters << letter
       end
     end
-    result
+    used_letters.count == letters.count
   end
 
   def exists?(word)
     uri = URI("https://wagon-dictionary.herokuapp.com/#{word}")
     response = JSON.parse(Net::HTTP.get(uri))
-    response["found"] == true
+    response['found'] == true
   end
 end
