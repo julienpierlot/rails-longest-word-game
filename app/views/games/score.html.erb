@@ -1,0 +1,7 @@
+<h1>Your score</h1>
+
+<p><%= @answer %></p>
+<% if @score %>
+  <p>Your score is <%= @score %></p>
+<% end %>
+<%= link_to 'Play again', new_path %>

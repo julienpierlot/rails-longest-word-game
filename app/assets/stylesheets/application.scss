@@ -13,3 +13,27 @@
  *= require_tree .
  *= require_self
  */
+
+
+ .letters {
+   list-style: none;
+   display: flex;
+   .letter {
+    padding: 20px;
+    background-color: beige;
+    margin: 10px;
+    border: 1px solid black;
+   }
+ }
+
+ .word-submit {
+   padding: 5px 20px;
+   background-color: black;
+   color: white;
+   border: 1px solid transparent;
+ }
+
+ #word {
+  padding: 5px 20px;
+  border: 1px solid black;
+ }
